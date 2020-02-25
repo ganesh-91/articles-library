@@ -8,4 +8,5 @@ export interface Article extends Document {
   image: string;
   description: string;
   created: Date;
+  rating: Number;
 }

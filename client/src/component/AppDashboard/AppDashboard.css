@@ -4,3 +4,25 @@
   flex-direction: column;
   padding: 10px 40px;
 }
+
+.rating-block-wrapper{
+  line-height: 10px;
+}
+
+.rating-button{}
+
+.media{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.article-meta{
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.author-info{
+  font-size: 12px;
+}
