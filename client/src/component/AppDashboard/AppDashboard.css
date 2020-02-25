@@ -9,7 +9,9 @@
   line-height: 10px;
 }
 
-.rating-button{}
+.rating-button{
+  cursor: pointer;
+}
 
 .media{
   display: flex;
@@ -18,6 +20,7 @@
 }
 
 .article-meta{
+  width: 100%;
   display: flex;
   flex: 1;
   flex-direction: row;

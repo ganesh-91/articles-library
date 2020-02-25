@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 export const ArticleSchema = new mongoose.Schema({
+  url: String,
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

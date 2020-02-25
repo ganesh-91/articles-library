@@ -14,19 +14,16 @@ const App = (props) => {
     // return () => {
     //   cleanup
     // };
-
     if (getSession()) {
-      console.log(getSession());
-      // props.history.push('/app')
       apiCallGet('/auth/check', { email, password })
-      .then((response) => {
-        console.log(response);
-        startSession(response.token);
-        props.history.push('/app')
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          console.log("response", response);
+          startSession(response.token);
+          props.history.push('/app')
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     } else {
       console.log('out')
     }
@@ -44,8 +41,8 @@ const App = (props) => {
   const loginSubmit = () => {
     apiCallPost('/auth/login', { email, password })
       .then((response) => {
-        console.log(response);
-        startSession(response.token);
+        console.log(response.data.token);
+        startSession(response.data.token);
         props.history.push('/app')
       })
       .catch((error) => {

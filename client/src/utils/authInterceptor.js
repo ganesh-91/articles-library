@@ -10,31 +10,27 @@ const genericHeaders = () => ({
   ...getAuthorizationHeader()
 });
 
-const apiCallGet = (url,headers) => {
+const apiCallGet = (url, headers) => {
   return (axios.get(api + url,
-    { headers: { ...genericHeaders(), ...headers } })
-    .then(function (response) {
-      // console.log(response);
-      return response.data;
-    })
-    .catch(function (error) {
-      // console.log(error);
-      return error;
-    }));
+    { headers: { ...genericHeaders(), ...headers } }));
 }
 
 const apiCallPost = (url, data, headers) => {
   return (axios.post(api + url,
     data,
-    { headers: { ...genericHeaders(), ...headers } })
-    .then(function (response) {
-      // console.log(response);
-      return response.data;
-    })
-    .catch(function (error) {
-      // console.log(error);
-      return error;
-    }));
+    { headers: { ...genericHeaders(), ...headers } }));
 }
 
-export { apiCallPost, apiCallGet };
+const apiCallPut = (url, data, headers) => {
+  return (axios.put(api + url,
+    data,
+    { headers: { ...genericHeaders(), ...headers } }));
+}
+
+const apiCallDelete = (url, data, headers) => {
+  return (axios.delete(api + url,
+    data,
+    { headers: { ...genericHeaders(), ...headers } }));
+}
+
+export { apiCallPost, apiCallGet, apiCallPut, apiCallDelete };

@@ -8,7 +8,7 @@ import { CreateArticleDTO, UpdateArticleDTO } from './article.dto';
 
 @Injectable()
 export class ArticleService {
-  constructor(@InjectModel('Article') private articleModel: Model<Article>) {}
+  constructor(@InjectModel('Article') private articleModel: Model<Article>) { }
 
   async findAll(): Promise<Article[]> {
     return await this.articleModel.find().populate('author');
@@ -49,6 +49,20 @@ export class ArticleService {
     }
     await article.update(articleDTO);
     return await this.articleModel.findById(id).populate('author');
+  }
+
+  async updateRatingUp(
+    id: string
+  ): Promise<Article> {
+    return await this.articleModel.findOneAndUpdate({ _id: id }, { $inc: { rating: 1 } });
+    // return await this.articleModel.findById(id).populate('author');
+  }
+
+  async updateRatingDown(
+    id: string
+  ): Promise<Article> {
+    return await this.articleModel.findOneAndUpdate({ _id: id }, { $inc: { rating: -1 } });
+    // return await this.articleModel.findById(id).populate('author');
   }
 
   async delete(id: string, userId: string): Promise<Article> {
