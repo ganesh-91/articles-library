@@ -15,26 +15,33 @@ import { User as UserDocument } from '../types/user';
 import { User } from '../utilities/user.decorator';
 import { CreateArticleDTO, UpdateArticleDTO } from './article.dto';
 import { ArticleService } from './article.service';
+import { Response } from "../types/response";
 
 @Controller('article')
 export class ArticleController {
-  constructor(private articleService: ArticleService) {}
+  constructor(private articleService: ArticleService) { }
 
   @Get()
-  async listAll(): Promise<Article[]> {
-    return await this.articleService.findAll();
+  async listAll(): Promise<Response> {
+    let data = await this.articleService.findAll();
+    let pagination = {};
+    return { data, pagination };
   }
 
   @Get('/mine')
   @UseGuards(AuthGuard('jwt'))
-  async listMine(@User() user: UserDocument): Promise<Article[]> {
+  async listMine(@User() user: UserDocument): Promise<Response> {
     const { id } = user;
-    return await this.articleService.findByAuthor(id);
+    let data = await this.articleService.findByAuthor(id);
+    let pagination = {};
+    return { data, pagination };
   }
 
   @Get('/user/:id')
-  async listBySeller(@Param('id') id: string): Promise<Article[]> {
-    return await this.articleService.findByAuthor(id);
+  async listBySeller(@Param('id') id: string): Promise<Response> {
+    let data = await this.articleService.findByAuthor(id);
+    let pagination = {};
+    return { data, pagination };
   }
 
   @Post()

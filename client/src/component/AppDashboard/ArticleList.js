@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ArticleList = () => {
+const ArticleList = ({ list }) => {
     return (
         <div className="">
             {/* <div  className="list-group"><a href="#" className="list-group-item list-group-item-action list-group-item-primary">A simple primary list group item</a></div>
@@ -37,21 +37,28 @@ const ArticleList = () => {
                     </div>
                 </a>
             </nav> */}
-            <div className="media text-muted pt-3">
-                <p className="media-body pb-3 mb-0 small lh-125 text-left border-bottom border-gray">
-                    <strong className="d-block text-gray-dark">@username</strong>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            </div>
-            <div className="media text-muted pt-3">
-                <p className="media-body pb-3 mb-0 small lh-125 text-left border-bottom border-gray">
-                    <strong className="d-block text-gray-dark">@username</strong>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            </div>
-            <div className="media text-muted pt-3">
-                <p className="media-body pb-3 mb-0 small lh-125 text-left border-bottom border-gray">
-                    <strong className="d-block text-gray-dark">@username</strong>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            </div>
+            {list.map((el) => {
+                return (
+                    <div key={Math.random().toString()} className="media text-muted pt-3">
+                        <p className="media-body pb-3 mb-0 small lh-125 text-left border-bottom border-gray">
+                            <strong className="d-block text-gray-dark">{el.title}</strong>
+                            {/* <span>{el.description}</span> */}
+                        </p>
+                        <div>
+                           <div>
+                            <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"/></svg>
+                           </div>
+                            <div></div>
+                            <div>
+                            <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg>
+
+                            </div>
+                        </div>
+                    </div>);
+            })}
+
+
         </div>
     )
 }

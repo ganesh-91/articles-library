@@ -14,7 +14,7 @@ const AppDashboard = () => {
     apiCallGet('/article/mine').then((response) => {
       console.log(response);
       // return response;
-      setList(response.user)
+      setList(response.data)
     })
       .catch((error) => {
         console.log(error);

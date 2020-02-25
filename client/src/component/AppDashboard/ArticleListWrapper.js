@@ -3,11 +3,11 @@ import Actions from './Actions'
 import ArticleList from './ArticleList'
 
 const ArticleListWrapper = ({ list }) => {
-    console.log('list',list)
+    console.log('list', list)
     return (
         <div className="my-3 p-3 bg-white rounded shadow-sm">
             <Actions />
-            <ArticleList />
+            <ArticleList list={list} />
             <small className="d-block text-right mt-3">
                 <a href="#">All updates</a>
             </small>
