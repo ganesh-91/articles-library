@@ -6,7 +6,8 @@ import { apiCallGet, apiCallPost, apiCallPut, apiCallDelete } from '../../utils/
 import './AppDashboard.css'
 
 const AppDashboard = () => {
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
+  const [pagination, setPagination] = useState({count: 0, resPerPage: 3, page: 1})
 
   useEffect(() => {
     getList()
@@ -16,9 +17,10 @@ const AppDashboard = () => {
   }, [])
 
   const getList = () => {
-    apiCallGet('/article/mine').then((response) => {
-      console.log('response', response.data.data);
+    apiCallGet('/article?resPerPage=3&page=1').then((response) => {
+      console.log('response', response.data.pagination);
       setList(response.data.data)
+      setPagination(response.data.pagination)
     })
       .catch((error) => {
         console.log(error);
@@ -28,18 +30,16 @@ const AppDashboard = () => {
   const rateArt = (id, action) => {
     console.log(typeof (id), typeof (action))
     apiCallPut(`/article/rate/${id}/${action}`).then((response) => {
-      console.log('response', response.data.data);
       getList();
     })
       .catch((error) => {
         console.log(error);
       });
   }
-
   return (
     <main role="main" className="app-dashboard container jumbotron">
       <Header />
-      <ArticleListWrapper list={list} rateArt={rateArt} />
+      <ArticleListWrapper pagination={pagination} list={list} rateArt={rateArt} />
     </main>
   );
 }

@@ -10,8 +10,13 @@ import { CreateArticleDTO, UpdateArticleDTO } from './article.dto';
 export class ArticleService {
   constructor(@InjectModel('Article') private articleModel: Model<Article>) { }
 
-  async findAll(): Promise<Article[]> {
-    return await this.articleModel.find().populate('author');
+  async findAll(resPerPage, page): Promise<Article[]> {
+    console.log('findAll', resPerPage, page)
+    return await this.articleModel.find().skip((resPerPage * page) - resPerPage).limit(resPerPage).populate({ path: 'author', select: 'email' });
+  }
+
+  async findCount(): Promise<number> {
+    return await this.articleModel.find().count();
   }
 
   async findByAuthor(userId: string): Promise<Article[]> {

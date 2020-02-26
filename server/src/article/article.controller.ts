@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -18,18 +19,22 @@ import { ArticleService } from './article.service';
 import { Response } from "../types/response";
 import * as Crawler from "crawler";
 import { async } from 'rxjs/internal/scheduler/async';
-// var Crawler = require("crawler");
-
-
 
 @Controller('article')
 export class ArticleController {
   constructor(private articleService: ArticleService) { }
 
   @Get()
-  async listAll(): Promise<Response> {
-    let data = await this.articleService.findAll();
-    let pagination = {};
+  async listAll(@Query('resPerPage') resPerPage: string, @Query('page') page: string): Promise<Response> {
+    console.log('resPerPage, page', resPerPage, page)
+    let data = await this.articleService.findAll(parseInt(resPerPage), parseInt(page));
+    let count = await this.articleService.findCount();
+    console.log('data', data)
+    let pagination = {
+      count,
+      resPerPage: parseInt(resPerPage),
+      page: parseInt(page)
+    };
     return { data, pagination };
   }
 
