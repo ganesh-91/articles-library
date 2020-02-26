@@ -7,7 +7,7 @@ import './AppDashboard.css'
 
 const AppDashboard = () => {
   const [list, setList] = useState([]);
-  const [resPerPage, setResPerPage] = useState(3)
+  const [resPerPage, setResPerPage] = useState(20)
   const [page, setPage] = useState(1)
   const [pagination, setPagination] = useState({ count: 0, resPerPage: 0, page: 0 })
 
@@ -31,9 +31,10 @@ const AppDashboard = () => {
 
   const rateArt = (id, action) => {
     console.log(typeof (id), typeof (action))
-    apiCallPut(`/article/rate/${id}/${action}`).then((response) => {
-      getList();
-    })
+    apiCallPut(`/article/rate/${id}/${action}`)
+      .then((response) => {
+        getList();
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -45,6 +46,20 @@ const AppDashboard = () => {
     }
   }
 
+  const urlEnter = (url,cb) => {
+    apiCallPost('/article', {
+      url
+    }).then((response) => {
+      console.log('urlEnter', response)
+      getList(page);
+      cb();
+    })
+      .catch((error) => {
+        console.log('error', error.response);
+      });
+    console.log('url', url)
+  }
+
   const nxtEvent = () => {
     if (page < (pagination.count / pagination.resPerPage)) {
       setPage(page + 1);
@@ -53,7 +68,7 @@ const AppDashboard = () => {
 
   return (
     <main role="main" className="app-dashboard container jumbotron">
-      <Header />
+      <Header urlEnter={urlEnter} />
       <ArticleListWrapper prvEvent={prvEvent} nxtEvent={nxtEvent} pagination={pagination} list={list} rateArt={rateArt} />
     </main>
   );

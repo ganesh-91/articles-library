@@ -16,9 +16,9 @@ const App = (props) => {
     // };
     if (getSession()) {
       apiCallGet('/auth/check', { email, password })
-        .then((response) => {
-          console.log("response", response);
-          startSession(response.token);
+        .then(({data}) => {
+          console.log("data", data);
+          startSession(data.token);
           props.history.push('/app')
         })
         .catch((error) => {
@@ -40,9 +40,9 @@ const App = (props) => {
 
   const loginSubmit = () => {
     apiCallPost('/auth/login', { email, password })
-      .then((response) => {
-        console.log(response.data.token);
-        startSession(response.data.token);
+      .then(({data}) => {
+        console.log(data.token);
+        startSession(data.token);
         props.history.push('/app')
       })
       .catch((error) => {
