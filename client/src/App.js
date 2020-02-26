@@ -12,6 +12,9 @@ const App = () => {
       <div className="App">
         <Switch>
           {/* <Suspense fallback={<PageLoader />}> */}
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
           <Route path="/app" component={AppDashboard} />
           <Route path="/login" component={Login} />
           {/* </Suspense> */}

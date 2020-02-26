@@ -9,32 +9,30 @@ const AppDashboard = () => {
   const [list, setList] = useState([])
 
   useEffect(() => {
-    // apiCallPost();
-    // console.log('apiCallPost()', apiCallGet())
-    apiCallGet('/article/mine').then((response) => {
-      console.log('response', response.data.data);
-      // return response;
-      setList(response.data.data)
-    })
-      .catch((error) => {
-        console.log(error);
-        // return error;
-      });
+    getList()
     // return () => {
     //   cleanup
     // };
   }, [])
 
+  const getList = () => {
+    apiCallGet('/article/mine').then((response) => {
+      console.log('response', response.data.data);
+      setList(response.data.data)
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   const rateArt = (id, action) => {
     console.log(typeof (id), typeof (action))
     apiCallPut(`/article/rate/${id}/${action}`).then((response) => {
       console.log('response', response.data.data);
-      // return response;
-      // setList(response.data.data)
+      getList();
     })
       .catch((error) => {
         console.log(error);
-        // return error;
       });
   }
 

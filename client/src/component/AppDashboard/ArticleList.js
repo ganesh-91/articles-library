@@ -3,10 +3,10 @@ import React from 'react'
 const ArticleList = ({ list, rateArt }) => {
 
     return (
-        <div className="">
+        <div className="articles-list px-3">
             {list.map((el) => {
                 return (
-                    <div key={Math.random().toString()} className="media text-muted pt-3 border-bottom border-gray">
+                    <div key={Math.random().toString()} className="media text-muted pt-3 border-bottom border-gray ">
                         <div className="article-meta">
                             <div className="media-body pb-3 mb-0 small lh-125 text-left">
                                 <h6 className="d-block text-gray-dark">
