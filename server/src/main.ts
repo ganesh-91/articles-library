@@ -15,6 +15,10 @@ if (process.env.NODE_ENV === 'test') {
 const server = Express();
 server.use(cors());
 server.get('/', (req, res) => res.send('ok'));
+// server.post('/slack', (req, res) => {
+//   console.log('req[challenge]', req)
+//   res.send(req['challenge'])
+// });
 server.get('/_ah/health', (req, res) => res.send('ok'));
 server.get('/_ah/start', (req, res) => res.send('ok'));
 

@@ -10,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 
 import { Article } from '../types/article';
 import { User as UserDocument } from '../types/user';
@@ -135,3 +136,36 @@ export class ArticleController {
     return await this.articleService.delete(id, userId);
   }
 }
+
+// @WebSocketGateway()
+// export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+
+//     @WebSocketServer() server;
+//     users: number = 0;
+
+//     async handleConnection() {
+
+//         // A client has connected
+//         this.users++;
+
+//         // Notify connected clients of current users
+//         this.server.emit('users', this.users);
+
+//     }
+
+//     async handleDisconnect() {
+
+//         // A client has disconnected
+//         this.users--;
+
+//         // Notify connected clients of current users
+//         this.server.emit('users', this.users);
+
+//     }
+
+//     @SubscribeMessage('chat')
+//     async onChat(client, message) {
+//         client.broadcast.emit('chat', message);
+//     }
+
+// }

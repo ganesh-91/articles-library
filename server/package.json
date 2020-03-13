@@ -30,6 +30,8 @@
     "@nestjs/mongoose": "^6.0.0",
     "@nestjs/passport": "^6.0.0",
     "@nestjs/platform-express": "^6.0.5",
+    "@nestjs/platform-socket.io": "^6.11.8",
+    "@nestjs/websockets": "^6.11.8",
     "bcrypt": "^3.0.4",
     "crawler": "^1.2.1",
     "dotenv": "^6.2.0",
