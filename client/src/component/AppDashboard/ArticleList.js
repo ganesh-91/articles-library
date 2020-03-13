@@ -25,7 +25,7 @@ const ArticleList = ({ list, rateArt }) => {
                             </div>
                         </div>
                         <div className="author-info">
-                            <div>{el.author.email}</div>
+                            <div>{el.author.user_name}</div>
                             <div></div>
                             <div></div>
                         </div>

@@ -4,15 +4,15 @@ const Header = ({ urlEnter }) => {
     const [url, setUrl] = useState('');
 
     const urlChanged = (e) => {
-        setUrl(e.target.value)
+        // setUrl(e.target.value)
     }
 
     const enterKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            urlEnter(url, () => {
-                setUrl("")
-            })
-        }
+        // if (e.key === 'Enter') {
+        //     urlEnter(url, () => {
+        //         setUrl("")
+        //     })
+        // }
     }
 
     return (

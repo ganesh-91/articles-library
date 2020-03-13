@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getSession } from './localStorageHelper';
 
 const api = 'http://localhost:3000/api'
+// const api = 'https://art-lib.herokuapp.com/api'
 
 const getAuthorizationHeader = () => (getSession() ? { Authorization: `Bearer ${getSession()}` } : {});
 

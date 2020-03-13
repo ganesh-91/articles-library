@@ -15,22 +15,24 @@ import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnectio
 import { Article } from '../types/article';
 import { User as UserDocument } from '../types/user';
 import { User } from '../utilities/user.decorator';
-import { CreateArticleDTO, UpdateArticleDTO } from './article.dto';
+import { CreateArticleDTO, UpdateArticleDTO, SlackArticleDTO } from './article.dto';
 import { ArticleService } from './article.service';
 import { Response } from "../types/response";
 import * as Crawler from "crawler";
 import { async } from 'rxjs/internal/scheduler/async';
+import { UserService } from '../shared/user.service';
 
 @Controller('article')
 export class ArticleController {
-  constructor(private articleService: ArticleService) { }
+  constructor(private articleService: ArticleService,
+    private userService: UserService) { }
 
   @Get()
   async listAll(@Query('resPerPage') resPerPage: string, @Query('page') page: string): Promise<Response> {
-    console.log('resPerPage, page', resPerPage, page)
+    // console.log('resPerPage, page', resPerPage, page)
     let data = await this.articleService.findAll(parseInt(resPerPage), parseInt(page));
     let count = await this.articleService.findCount();
-    console.log('data', data)
+    // console.log('data', data)
     let pagination = {
       count,
       resPerPage: parseInt(resPerPage),
@@ -58,31 +60,27 @@ export class ArticleController {
   @Post()
   // @UseGuards(AuthGuard('jwt'))
   async create(
-    @Body() article: CreateArticleDTO,
-    @User() user: UserDocument,
+    @Body() article: SlackArticleDTO
   ): Promise<Article> {
-    const { url } = article;
+
+    const user = await this.userService.findByUserName(article.user_name);
+    console.log('user_user', user)
+    // const { url } = article;
     let data: CreateArticleDTO = {
       url: '',
       title: '',
       image: '',
       description: '',
-      rating: 0,
-
-      token: '',
-      team_id: '',
-      team_domain: '',
-      channel_id: '',
-      channel_name: '',
-      user_id: '',
-      user_name: '',
-      command: '',
-      text: '',
-      response_url: '',
-      trigger_id: ''
+      rating: 0
     }
+    console.log('article', article)
+    // console.log('article.text.url', article.text.split(':'))
+    let mySubString = article.text.substring(
+      article.text.lastIndexOf("+<") + 2,
+      article.text.lastIndexOf("+>")
+    );
 
-    console.log('article.url', article.url)
+    console.log('mySubString', mySubString)
 
     let promise = new Promise(function (resolve, reject) {
       // executor (the producing code, "singer")
@@ -99,16 +97,15 @@ export class ArticleController {
           done();
         }
       });
-      c.queue(url);
+      c.queue(mySubString);
     });
     await promise.then((res: string) => {
-      data = article;
       data.title = res;
     }).catch((err) => {
       console.log('err', err)
     });
 
-    return await { ...this.articleService.create(data, user), article };
+    return await this.articleService.create(data, user);
   }
 
   @Get(':id')
