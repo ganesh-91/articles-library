@@ -10,7 +10,7 @@ const ArticleList = ({ list, rateArt }) => {
                         <div className="article-meta">
                             <div className="media-body pb-3 mb-0 small lh-125 text-left">
                                 <h6 className="d-block text-gray-dark">
-                                    <a href={el.title} target="blank">{el.title}</a>
+                                    <a href={el.url} target="blank">{el.title}</a>
                                 </h6>
                                 {/* <span>{el.description}</span> */}
                             </div>
