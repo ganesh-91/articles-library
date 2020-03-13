@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { getSession } from './localStorageHelper';
 
-let api = 'http://localhost:3000/api'
+let api = 'https://art-lib.herokuapp.com/api'
 console.log('env', process.env.NODE_ENV.toLowerCase())
-if (process.env.NODE_ENV.toLowerCase() === 'development') {
-  api = 'http://localhost:8000/api'
-}
-if (process.env.NODE_ENV.toLowerCase() === 'production') {
-  api = 'https://art-lib.herokuapp.com/api'
-}
+// if (process.env.NODE_ENV.toLowerCase() === 'development') {
+//   api = 'http://localhost:8000/api'
+// }
+// if (process.env.NODE_ENV.toLowerCase() === 'production') {
+//   api = 'https://art-lib.herokuapp.com/api'
+// }
 
 const getAuthorizationHeader = () => (getSession() ? { Authorization: `Bearer ${getSession()}` } : {});
 
